@@ -14,9 +14,9 @@
 </div>
 
 ## About The Project
-
+<div align="center">
 ![Dealthy screenshot](https://i.ibb.co/ZLzpSLb/pika-2022-02-26-T20-34-12-721-Z.png)
-
+</div>
 Dealthy is a decentralized platform that brings health to everyone through the internet, from a single app you can track your covid, perform online tests, get better health habits and get NLP based diagnostics.
 
 [More Info](https://devpost.com/software/dealthy)
