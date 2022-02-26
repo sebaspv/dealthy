@@ -7,6 +7,7 @@ import { Route } from "wouter";
 import Welcome from "./components/Welcome";
 import Covid from "./components/Covid";
 import Map from "./components/Map";
+import Loading from "./components/Loading";
 import { ModalsProvider } from "@mantine/modals";
 
 const App = () => {
@@ -34,6 +35,9 @@ const App = () => {
           </Route>
           <Route path="/covid/map">
             <Map />
+          </Route>
+          <Route path="/tools">
+            <Loading />
           </Route>
           <Nav />
         </section>
