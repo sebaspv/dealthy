@@ -7,8 +7,10 @@ import { Route } from "wouter";
 import Welcome from "./components/Welcome";
 import Covid from "./components/Covid";
 import Map from "./components/Map";
-import Loading from "./components/Loading";
 import { ModalsProvider } from "@mantine/modals";
+import Tools from "./components/Tools";
+import Test from "./components/Test";
+import Goods from "./components/Goods";
 
 const App = () => {
   return (
@@ -37,7 +39,13 @@ const App = () => {
             <Map />
           </Route>
           <Route path="/tools">
-            <Loading />
+            <Tools />
+          </Route>
+          <Route path="/tools/test">
+            <Test />
+          </Route>
+          <Route path="/tools/good">
+            <Goods />
           </Route>
           <Nav />
         </section>

@@ -1,7 +1,6 @@
 import React from "react";
 import useSWR from "swr";
 import { Link } from "wouter";
-import { Text } from "@mantine/core";
 import Loading from "./Loading";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());

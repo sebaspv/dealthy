@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import GoogleMapReact from "google-map-react";
 import {
   Popover,
@@ -9,6 +9,11 @@ import {
   Modal,
 } from "@mantine/core";
 import { useForm } from "@mantine/hooks";
+import toast, { Toaster } from "react-hot-toast";
+import useSWR from "swr";
+import Loading from "./Loading";
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const Marker = ({ color, children }) => {
   const [opened2, setOpened2] = useState(false);
@@ -31,6 +36,7 @@ const Marker = ({ color, children }) => {
         opened={opened2}
         withCloseButton
         onClose={() => setOpened2(false)}
+        size="sm"
       >
         {children}
       </Dialog>
@@ -51,16 +57,35 @@ const Map = () => {
     },
   });
 
+  const [coords, setCoords] = useState();
+
+  useEffect(() => {
+    const getCoords = async () => {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setCoords({
+          lat: position.coords.latitude || "0",
+          lng: position.coords.longitude || "0",
+        });
+      });
+    };
+    getCoords();
+  }, []);
+
   const defaultProps = {
     center: {
-      lat: 10.963889,
-      lng: -74.796387,
+      lat: coords?.lat,
+      lng: coords?.lng,
     },
     zoom: 7,
   };
 
+  const { data } = useSWR("https://dealthy.deta.dev/users", fetcher);
+
+  if (!data || !coords) return <Loading />;
+
   return (
     <>
+      <Toaster />
       <Modal
         onClose={() => setOpened(false)}
         opened={opened}
@@ -71,7 +96,19 @@ const Map = () => {
             values.lng = selected.lng;
             values.lat = selected.lat;
             values.date = new Date();
-            console.log(values);
+            toast.promise(
+              fetch(
+                `https://dealthy.deta.dev/users?date=${values.date}&type=${values.type}&lng=${values.lng}&lat=${values.lat}`,
+                {
+                  method: "POST",
+                }
+              ),
+              {
+                success: "Success",
+                error: "Error",
+                loading: "Loading...",
+              }
+            );
           })}
         >
           <TextInput
@@ -125,6 +162,16 @@ const Map = () => {
           defaultCenter={defaultProps.center}
           defaultZoom={defaultProps.zoom}
         >
+          {data._items.map((item, key) => (
+            <Marker
+              color={item.covid_status == "dead" ? "red" : "green"}
+              key={key}
+              lat={item.lat}
+              lng={item.lng}
+            >
+              <h2>{`Status: ${item.covid_status}`}</h2>
+            </Marker>
+          ))}
           {selected && (
             <Marker color="gray" lat={selected.lat} lng={selected.lng}>
               <Button onClick={() => setOpened(true)} color="pink">
