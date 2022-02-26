@@ -11,6 +11,7 @@ import { ModalsProvider } from "@mantine/modals";
 import Tools from "./components/Tools";
 import Test from "./components/Test";
 import Goods from "./components/Goods";
+import Checker from "./components/Checker";
 
 const App = () => {
   return (
@@ -46,6 +47,9 @@ const App = () => {
           </Route>
           <Route path="/tools/good">
             <Goods />
+          </Route>
+          <Route path="/tools/checker">
+            <Checker />
           </Route>
           <Nav />
         </section>
