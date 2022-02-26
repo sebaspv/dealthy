@@ -26,7 +26,9 @@ const Goods = () => {
       <Text size="xl" weight={700}>
         Drink 2L of water daily
       </Text>
-      <Button color="pink">Remind me to drink water</Button>
+      <Text size="xl" weight={700}>
+        Click the bell to enable good habits notifications
+      </Text>
     </section>
   );
 };
