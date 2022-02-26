@@ -61,7 +61,11 @@ const Map = () => {
 
   return (
     <>
-      <Modal opened={opened} title="Add a new COVID case">
+      <Modal
+        onClose={() => setOpened(false)}
+        opened={opened}
+        title="Add a new COVID case"
+      >
         <form
           onSubmit={form.onSubmit((values) => {
             values.lng = selected.lng;
