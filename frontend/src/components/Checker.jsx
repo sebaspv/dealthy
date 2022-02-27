@@ -170,7 +170,7 @@ const Checker = () => {
         </InputWrapper>
         <Button
           type="submit"
-          color="red"
+          color="pink"
           size="md"
           style={{
             margin: "0 auto",
